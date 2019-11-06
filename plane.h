@@ -3,8 +3,8 @@
  * It was generated using rpcgen.
  */
 
-#ifndef _PLACES_H_RPCGEN
-#define _PLACES_H_RPCGEN
+#ifndef _PLANE_H_RPCGEN
+#define _PLANE_H_RPCGEN
 
 #include <rpc/rpc.h>
 
@@ -33,26 +33,26 @@ struct planeListRet {
 };
 typedef struct planeListRet planeListRet;
 
-struct position {
-	float lon;
-	float lat;
+struct location {
+	char *place;
+	char *state;
 };
-typedef struct position position;
+typedef struct location location;
 
-#define AIRPORT_LOOKUP_PROG 0x26459329
-#define AIRPORT_LOOKUP_VERS 1
+#define PLACE_LOOKUP_PROG 0x66454318
+#define PLACE_LOOKUP_VERS 1
 
 #if defined(__STDC__) || defined(__cplusplus)
-#define getAirports 1
-extern  planeListRet * getairports_1(position *, CLIENT *);
-extern  planeListRet * getairports_1_svc(position *, struct svc_req *);
-extern int airport_lookup_prog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
+#define GETAIRPORTS 1
+extern  planeListRet * getairports_1(location *, CLIENT *);
+extern  planeListRet * getairports_1_svc(location *, struct svc_req *);
+extern int place_lookup_prog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
-#define getAirports 1
+#define GETAIRPORTS 1
 extern  planeListRet * getairports_1();
 extern  planeListRet * getairports_1_svc();
-extern int airport_lookup_prog_1_freeresult ();
+extern int place_lookup_prog_1_freeresult ();
 #endif /* K&R C */
 
 /* the xdr functions */
@@ -61,13 +61,13 @@ extern int airport_lookup_prog_1_freeresult ();
 extern  bool_t xdr_airportList (XDR *, airportList*);
 extern  bool_t xdr_airports (XDR *, airports*);
 extern  bool_t xdr_planeListRet (XDR *, planeListRet*);
-extern  bool_t xdr_position (XDR *, position*);
+extern  bool_t xdr_location (XDR *, location*);
 
 #else /* K&R C */
 extern bool_t xdr_airportList ();
 extern bool_t xdr_airports ();
 extern bool_t xdr_planeListRet ();
-extern bool_t xdr_position ();
+extern bool_t xdr_location ();
 
 #endif /* K&R C */
 
@@ -75,4 +75,4 @@ extern bool_t xdr_position ();
 }
 #endif
 
-#endif /* !_PLACES_H_RPCGEN */
+#endif /* !_PLANE_H_RPCGEN */

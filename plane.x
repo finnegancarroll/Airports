@@ -15,13 +15,13 @@ union planeListRet switch(int err){
     void;	
 };
 
-struct position{
-  float lon;
-  float lat;
+struct location{
+  char* place;
+  char* state;
 };
 
-program AIRPORT_LOOKUP_PROG {
- version AIRPORT_LOOKUP_VERS {
- planeListRet getAirports(position) = 1;
+program PLACE_LOOKUP_PROG {
+ version PLACE_LOOKUP_VERS {
+ planeListRet GETAIRPORTS(location) = 1;
  } = 1;
-} = 0x26459329; 
+} = 0x66454318; 

@@ -3,7 +3,7 @@
  * It was generated using rpcgen.
  */
 
-#include "places.h"
+#include "plane.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <rpc/pmap_clnt.h>
@@ -17,10 +17,10 @@
 #endif
 
 static void
-airport_lookup_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
+place_lookup_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
-		position getairports_1_arg;
+		location getairports_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -31,8 +31,8 @@ airport_lookup_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		(void) svc_sendreply (transp, (xdrproc_t) xdr_void, (char *)NULL);
 		return;
 
-	case getAirports:
-		_xdr_argument = (xdrproc_t) xdr_position;
+	case GETAIRPORTS:
+		_xdr_argument = (xdrproc_t) xdr_location;
 		_xdr_result = (xdrproc_t) xdr_planeListRet;
 		local = (char *(*)(char *, struct svc_req *)) getairports_1_svc;
 		break;
@@ -62,15 +62,15 @@ main (int argc, char **argv)
 {
 	register SVCXPRT *transp;
 
-	pmap_unset (AIRPORT_LOOKUP_PROG, AIRPORT_LOOKUP_VERS);
+	pmap_unset (PLACE_LOOKUP_PROG, PLACE_LOOKUP_VERS);
 
 	transp = svcudp_create(RPC_ANYSOCK);
 	if (transp == NULL) {
 		fprintf (stderr, "%s", "cannot create udp service.");
 		exit(1);
 	}
-	if (!svc_register(transp, AIRPORT_LOOKUP_PROG, AIRPORT_LOOKUP_VERS, airport_lookup_prog_1, IPPROTO_UDP)) {
-		fprintf (stderr, "%s", "unable to register (AIRPORT_LOOKUP_PROG, AIRPORT_LOOKUP_VERS, udp).");
+	if (!svc_register(transp, PLACE_LOOKUP_PROG, PLACE_LOOKUP_VERS, place_lookup_prog_1, IPPROTO_UDP)) {
+		fprintf (stderr, "%s", "unable to register (PLACE_LOOKUP_PROG, PLACE_LOOKUP_VERS, udp).");
 		exit(1);
 	}
 
@@ -79,8 +79,8 @@ main (int argc, char **argv)
 		fprintf (stderr, "%s", "cannot create tcp service.");
 		exit(1);
 	}
-	if (!svc_register(transp, AIRPORT_LOOKUP_PROG, AIRPORT_LOOKUP_VERS, airport_lookup_prog_1, IPPROTO_TCP)) {
-		fprintf (stderr, "%s", "unable to register (AIRPORT_LOOKUP_PROG, AIRPORT_LOOKUP_VERS, tcp).");
+	if (!svc_register(transp, PLACE_LOOKUP_PROG, PLACE_LOOKUP_VERS, place_lookup_prog_1, IPPROTO_TCP)) {
+		fprintf (stderr, "%s", "unable to register (PLACE_LOOKUP_PROG, PLACE_LOOKUP_VERS, tcp).");
 		exit(1);
 	}
 

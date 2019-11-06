@@ -4,18 +4,18 @@
  * as a guideline for developing your own functions.
  */
 
-#include "places.h"
+#include "plane.h"
 
 
 void
-airport_lookup_prog_1(char *host)
+place_lookup_prog_1(char *host)
 {
 	CLIENT *clnt;
 	planeListRet  *result_1;
-	position  getairports_1_arg;
+	location  getairports_1_arg;
 
 #ifndef	DEBUG
-	clnt = clnt_create (host, AIRPORT_LOOKUP_PROG, AIRPORT_LOOKUP_VERS, "udp");
+	clnt = clnt_create (host, PLACE_LOOKUP_PROG, PLACE_LOOKUP_VERS, "udp");
 	if (clnt == NULL) {
 		clnt_pcreateerror (host);
 		exit (1);
@@ -42,6 +42,6 @@ main (int argc, char *argv[])
 		exit (1);
 	}
 	host = argv[1];
-	airport_lookup_prog_1 (host);
+	place_lookup_prog_1 (host);
 exit (0);
 }

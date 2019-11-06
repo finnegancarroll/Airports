@@ -3,7 +3,7 @@
  * It was generated using rpcgen.
  */
 
-#include "places.h"
+#include "plane.h"
 
 bool_t
 xdr_airportList (XDR *xdrs, airportList *objp)
@@ -52,13 +52,13 @@ xdr_planeListRet (XDR *xdrs, planeListRet *objp)
 }
 
 bool_t
-xdr_position (XDR *xdrs, position *objp)
+xdr_location (XDR *xdrs, location *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_float (xdrs, &objp->lon))
+	 if (!xdr_pointer (xdrs, (char **)&objp->place, sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
-	 if (!xdr_float (xdrs, &objp->lat))
+	 if (!xdr_pointer (xdrs, (char **)&objp->state, sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
 	return TRUE;
 }
