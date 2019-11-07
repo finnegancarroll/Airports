@@ -5,19 +5,7 @@
  */
 
 #include "places.h"
-#include "plane.h"
 
-planeListRet *
-query_places_1_svc(location *argp, struct svc_req *rqstp)
-{
-	static planeListRet  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
-}
 
 void
 airport_lookup_prog_1(char *host)
@@ -49,9 +37,11 @@ main (int argc, char *argv[])
 {
 	char *host;
 
-  while(true){
-    //Wait for function call
-  }
-  
-  exit (0);
+	if (argc < 2) {
+		printf ("usage: %s server_host\n", argv[0]);
+		exit (1);
+	}
+	host = argv[1];
+	airport_lookup_prog_1 (host);
+exit (0);
 }

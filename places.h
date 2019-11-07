@@ -13,8 +13,8 @@
 extern "C" {
 #endif
 
-#ifndef PORTSTRUCT
-#define PORTSTRUCT
+#ifndef AIRPORTS
+#define AIRPORTS
 typedef struct airports *airportList;
 
 struct airports {
@@ -26,6 +26,7 @@ struct airports {
 };
 typedef struct airports airports;
 #endif
+
 
 #ifndef LISTRET
 #define LISTRET
