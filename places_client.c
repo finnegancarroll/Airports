@@ -5,7 +5,20 @@
  */
 
 #include "places.h"
+#include "plane.h"
 
+//Server code for plane
+planeListRet *
+getairports_1_svc(location *argp, struct svc_req *rqstp)
+{
+	static planeListRet  result;
+
+	/*
+	 * insert server code here
+	 */
+
+	return &result;
+}
 
 void
 airport_lookup_prog_1(char *host)
@@ -31,7 +44,7 @@ airport_lookup_prog_1(char *host)
 #endif	 /* DEBUG */
 }
 
-
+/*
 int
 main (int argc, char *argv[])
 {
@@ -42,6 +55,8 @@ main (int argc, char *argv[])
 		exit (1);
 	}
 	host = argv[1];
-	airport_lookup_prog_1 (host);
+	//Server doesn't need to call
+  //airport_lookup_prog_1 (host);
 exit (0);
 }
+*/
