@@ -22,6 +22,6 @@ struct position{
 
 program AIRPORT_LOOKUP_PROG {
  version AIRPORT_LOOKUP_VERS {
- planeListRet getAirports(position) = 1;
+ planeListRet QUERY_AIRPORTS(position) = 1;
  } = 1;
 } = 0x26459329; 
