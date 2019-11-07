@@ -16,6 +16,7 @@ union planeListRet switch(int err){
 };
 
 struct location{
+  char* hostName;
   char* place;
   char* state;
 };
