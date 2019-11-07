@@ -5,6 +5,7 @@
 
 #include "plane.h"
 
+/*
 bool_t
 xdr_airportList (XDR *xdrs, airportList *objp)
 {
@@ -50,6 +51,7 @@ xdr_planeListRet (XDR *xdrs, planeListRet *objp)
 	}
 	return TRUE;
 }
+*/
 
 bool_t
 xdr_location (XDR *xdrs, location *objp)

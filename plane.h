@@ -7,8 +7,6 @@
 #define _PLANE_H_RPCGEN
 
 #include <rpc/rpc.h>
-
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -26,7 +24,6 @@ struct airports {
 };
 typedef struct airports airports;
 #endif
-
 
 #ifndef LISTRET
 #define LISTRET
@@ -63,12 +60,14 @@ extern int place_lookup_prog_1_freeresult ();
 #endif /* K&R C */
 
 /* the xdr functions */
-
 #if defined(__STDC__) || defined(__cplusplus)
+#ifndef XDRFUNCS
+#define XDRFUNCS
 extern  bool_t xdr_airportList (XDR *, airportList*);
 extern  bool_t xdr_airports (XDR *, airports*);
 extern  bool_t xdr_planeListRet (XDR *, planeListRet*);
 extern  bool_t xdr_location (XDR *, location*);
+#endif
 
 #else /* K&R C */
 extern bool_t xdr_airportList ();
