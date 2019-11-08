@@ -12,7 +12,7 @@ query_airports_1_svc(position *argp, struct svc_req *rqstp)
   //SERVER CODE HERE
 	//SERVER CODE HERE
   
-  result.err = 2;
+  result.err = 12;
   
   //SERVER CODE HERE
 	//SERVER CODE HERE

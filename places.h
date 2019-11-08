@@ -21,7 +21,6 @@ struct airports {
 typedef struct airports airports;
 #endif
 
-
 #ifndef LISTRET
 #define LISTRET
 struct planeListRet {

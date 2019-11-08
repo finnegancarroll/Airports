@@ -1,10 +1,14 @@
 #include "plane.h"
 
+//TESTING
+#include <iostream>
+#include <string>
+
 void
 place_lookup_prog_1(char *host)
 {
-	CLIENT *clnt;
-	planeListRet  *result_1;
+	CLIENT *clnt = nullptr;
+	planeListRet *result_1 = nullptr;
 	location  query_places_1_arg;
   //Init to nullptr so rpc has stopping point
   query_places_1_arg.place = nullptr;
@@ -14,7 +18,7 @@ place_lookup_prog_1(char *host)
   query_places_1_arg.hostName = host;
 
   #ifndef	DEBUG
-	clnt = clnt_create (query_places_1_arg.hostName, PLACE_LOOKUP_PROG, PLACE_LOOKUP_VERS, "udp");
+	clnt = clnt_create (host, PLACE_LOOKUP_PROG, PLACE_LOOKUP_VERS, "udp");
 	if (clnt == NULL) {
 		clnt_pcreateerror (host);
 		exit (1);
@@ -34,7 +38,6 @@ place_lookup_prog_1(char *host)
   #endif	 /* DEBUG */
 }
 
-
 int
 main (int argc, char *argv[])
 {
@@ -46,5 +49,5 @@ main (int argc, char *argv[])
 	}
 	host = argv[1];
 	place_lookup_prog_1 (host);
-exit (0);
+  exit (0);
 }
