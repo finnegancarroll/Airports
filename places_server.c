@@ -3,7 +3,7 @@
 planeListRet *
 query_airports_1_svc(position *argp, struct svc_req *rqstp)
 {
-	static planeListRet  result;
+	static planeListRet result;
   //Init to nullptr so rpc has stopping point
   result.planeListRet_u.airportList = nullptr;
 
