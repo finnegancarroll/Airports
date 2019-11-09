@@ -1,19 +1,20 @@
-const MAXLEN = 255;
-typedef string acronym<MAXLEN>;
-typedef string airportName<MAXLEN>;
-typedef struct airports* airportList;
+const MAXLEN = 500;
+
+typedef string portInfo<MAXLEN>;
+typedef string placeInfo<MAXLEN>;
 
 struct airports{
-  acronym acr;
-  airportName name;
-  double lon;
-  double lat;
-  airportList next;
+  placeInfo p;
+  portInfo port1;
+  portInfo port2;
+  portInfo port3;
+  portInfo port4;
+  portInfo port5;
 };
 
 union planeListRet switch(int err){
 	case 0:
-    airports* airportList;
+    airports airp;
 	default:
     void;	
 };

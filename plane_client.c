@@ -6,16 +6,14 @@ void
 place_lookup_prog_1(char *phost, char *ahost)
 {
 	CLIENT *clnt = nullptr;
-	planeListRet *result_1 = nullptr;
-	location  query_places_1_arg;
-  //Init to nullptr so rpc has stopping point
+	planeListRet *result_1;
+	location query_places_1_arg;
+  //Airports server hostname
+  query_places_1_arg.host = ahost;
   //These values cannot be nullptr!
   query_places_1_arg.place = "NoCitySpecified";
   query_places_1_arg.state = "NoStateSpecified";
 
-  //Airports server hostname
-  query_places_1_arg.host = ahost;
-  
   #ifndef	DEBUG
 	clnt = clnt_create (phost, PLACE_LOOKUP_PROG, PLACE_LOOKUP_VERS, "udp");
 	if (clnt == NULL) {
@@ -31,20 +29,20 @@ place_lookup_prog_1(char *phost, char *ahost)
   
   //////PRINT OUT SERVER RESULTS HERE!//////
   
-  printf("Err is: %d\n", result_1->err);
+  printf(result_1->planeListRet_u.airp.p);
   
   //////PRINT OUT SERVER RESULTS HERE!//////
   
   //Print server errors
 	errno = result_1->err;
 	if(errno > 0){
-		//fprintf(stderr, "Value of errno: %d\n", errno);
+    perror("Server Error:");
   }
   
   #ifndef	DEBUG
   //Free xdr memory
   clnt_freeres(clnt, (xdrproc_t)xdr_planeListRet, (char *)result_1); 
-	clnt_destroy (clnt);
+	clnt_destroy(clnt);
   #endif
 }
 

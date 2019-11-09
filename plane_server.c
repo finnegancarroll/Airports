@@ -11,7 +11,12 @@ query_places_1_svc(location *argp, struct svc_req *rqstp)
   //Free memory from last call
   xdr_free((xdrproc_t)xdr_planeListRet, (char*)result_1); 
   //Init to nullptr so rpc has stopping point
-  result_1->planeListRet_u.airportList = nullptr;
+  result_1->planeListRet_u.airp.p = nullptr;
+  result_1->planeListRet_u.airp.port1 = nullptr;
+  result_1->planeListRet_u.airp.port2 = nullptr;
+  result_1->planeListRet_u.airp.port3 = nullptr;
+  result_1->planeListRet_u.airp.port4 = nullptr;
+  result_1->planeListRet_u.airp.port5 = nullptr;
   
   //Client code///////////
   
@@ -24,7 +29,7 @@ query_places_1_svc(location *argp, struct svc_req *rqstp)
   #ifndef	DEBUG
   //Free xdr memory
   clnt_freeres(clnt, (xdrproc_t)xdr_planeListRet, (char *)result_1); 
-  clnt_destroy (clnt);
+  clnt_destroy(clnt);
   #endif
   
   //Sever code///////////
