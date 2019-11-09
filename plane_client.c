@@ -1,4 +1,5 @@
 #include "plane.h"
+#include <errno.h>
 #include <iostream>
 
 void
@@ -28,8 +29,17 @@ place_lookup_prog_1(char *phost, char *ahost)
 		clnt_perror (clnt, "call failed");
 	}
   
-  //PRINTING ERROR TO TEST, SHOULD BE 14
+  //////PRINT OUT SERVER RESULTS HERE!//////
+  
   printf("Err is: %d\n", result_1->err);
+  
+  //////PRINT OUT SERVER RESULTS HERE!//////
+  
+  //Print server errors
+	errno = result_1->err;
+	if(errno > 0){
+		//fprintf(stderr, "Value of errno: %d\n", errno);
+  }
   
   #ifndef	DEBUG
   //Free xdr memory
