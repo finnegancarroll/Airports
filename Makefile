@@ -4,8 +4,8 @@ CC = $(CXX)
 
 # Parameters
 
-CLIENT1 = plane_client
-SERVER1 = plane_server
+CLIENT1 = client
+SERVER1 = places
 
 SOURCES_CLNT1.c = 
 SOURCES_CLNT1.h = 
@@ -43,8 +43,8 @@ $(SERVER1) : $(OBJECTS_SVC1)
 
 # Parameters
 
-CLIENT2 = places_client
-SERVER2 = places_server
+CLIENT2 = places
+SERVER2 = airports
 
 SOURCES_CLNT2.c = 
 SOURCES_CLNT2.h = 

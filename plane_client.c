@@ -28,7 +28,7 @@ place_lookup_prog_1(char *phost, char *ahost)
 	}
     
   //////PRINT OUT SERVER RESULTS HERE!//////
-  
+  std::cout << result_1->err << std::endl;
   printf(result_1->planeListRet_u.airp.p);
   printf(result_1->planeListRet_u.airp.port1);
   printf(result_1->planeListRet_u.airp.port2);
