@@ -1,10 +1,13 @@
+const MAXLEN = 255;
+typedef string acronym<MAXLEN>;
+typedef string airportName<MAXLEN>;
 typedef struct airports* airportList;
 
 struct airports{
-  char* acr;
-  char* name;
-  float lon;
-  float lat;
+  acronym acr;
+  airportName name;
+  double lon;
+  double lat;
   airportList next;
 };
 
@@ -16,8 +19,8 @@ union planeListRet switch(int err){
 };
 
 struct position{
-  float lon;
-  float lat;
+  double lon;
+  double lat;
 };
 
 program AIRPORT_LOOKUP_PROG {

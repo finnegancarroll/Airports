@@ -2,20 +2,26 @@
 #define _PLACES_H_RPCGEN
 
 #include <rpc/rpc.h>
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#ifndef AIRPORTS
-#define AIRPORTS
+#define MAXLEN 255
+
+typedef char *acronym;
+
+typedef char *airportName;
+
 typedef struct airports *airportList;
 
+
+#ifndef AIRPORTS
+#define AIRPORTS
 struct airports {
-	char *acr;
-	char *name;
-	float lon;
-	float lat;
+	acronym acr;
+	airportName name;
+	double lon;
+	double lat;
 	airportList next;
 };
 typedef struct airports airports;
@@ -33,8 +39,8 @@ typedef struct planeListRet planeListRet;
 #endif
 
 struct position {
-	float lon;
-	float lat;
+	double lon;
+	double lat;
 };
 typedef struct position position;
 
@@ -57,8 +63,11 @@ extern int airport_lookup_prog_1_freeresult ();
 /* the xdr functions */
 
 #if defined(__STDC__) || defined(__cplusplus)
+
 #ifndef XDRFUNCS
 #define XDRFUNCS
+extern  bool_t xdr_acronym (XDR *, acronym*);
+extern  bool_t xdr_airportName (XDR *, airportName*);
 extern  bool_t xdr_airportList (XDR *, airportList*);
 extern  bool_t xdr_airports (XDR *, airports*);
 extern  bool_t xdr_planeListRet (XDR *, planeListRet*);
@@ -66,6 +75,8 @@ extern  bool_t xdr_position (XDR *, position*);
 #endif
 
 #else /* K&R C */
+extern bool_t xdr_acronym ();
+extern bool_t xdr_airportName ();
 extern bool_t xdr_airportList ();
 extern bool_t xdr_airports ();
 extern bool_t xdr_planeListRet ();

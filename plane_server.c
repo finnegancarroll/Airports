@@ -1,16 +1,12 @@
 #include "plane.h"
 #include "places.h"
 
-//TESTING
-#include <iostream>
-#include <string>
-
 planeListRet *
 query_places_1_svc(location *argp, struct svc_req *rqstp)
 {
   static planeListRet* result_1 = new planeListRet;	
 	CLIENT *clnt = nullptr;
-	position query_airports_1_arg;//just two floats
+	position query_airports_1_arg;//just two doubles
   //Init to nullptr so rpc has stopping point
   result_1->planeListRet_u.airportList = nullptr;
   result_1->err = 0;
@@ -19,18 +15,10 @@ query_places_1_svc(location *argp, struct svc_req *rqstp)
   
   #ifndef	DEBUG
 	
-  //TESTING
-  //IF THE HOST IS LOCALHOST THEN THIS WILL RUN, THE CHAR* IS ONLY PICKING UP THE FIRST CHARACTER!!!
-  //CHANGE IT TO A STRING OR SOMETHING?
-  //COPY WHAT HE DID WITH LITDIR.X!
-  if(*(argp->hostName) == 'l'){
-    clnt = clnt_create ("localhost", AIRPORT_LOOKUP_PROG, AIRPORT_LOOKUP_VERS, "udp");
-  }else{
-    clnt = clnt_create ((std::string(argp->hostName)).c_str(), AIRPORT_LOOKUP_PROG, AIRPORT_LOOKUP_VERS, "udp");    
-  }
+  clnt = clnt_create (argp->host, AIRPORT_LOOKUP_PROG, AIRPORT_LOOKUP_VERS, "udp");    
   
   if (clnt == NULL) {
-		clnt_pcreateerror ((*argp).hostName);
+		clnt_pcreateerror ((*argp).host);
     exit (1);
 	}
   #endif	/* DEBUG */

@@ -6,15 +6,27 @@
 extern "C" {
 #endif
 
-#ifndef AIRPORTS
-#define AIRPORTS
+#define MAXLEN 255
+
+typedef char *acronym;
+
+typedef char *airportName;
+
+typedef char *hostName;
+
+typedef char *placeName;
+
+typedef char *stateName;
+
 typedef struct airports *airportList;
 
+#ifndef AIRPORTS
+#define AIRPORTS
 struct airports {
-	char *acr;
-	char *name;
-	float lon;
-	float lat;
+	acronym acr;
+	airportName name;
+	double lon;
+	double lat;
 	airportList next;
 };
 typedef struct airports airports;
@@ -32,9 +44,9 @@ typedef struct planeListRet planeListRet;
 #endif
 
 struct location {
-	char *hostName;
-	char *place;
-	char *state;
+	hostName host;
+	placeName place;
+	stateName state;
 };
 typedef struct location location;
 
@@ -58,6 +70,11 @@ extern int place_lookup_prog_1_freeresult ();
 #if defined(__STDC__) || defined(__cplusplus)
 #ifndef XDRFUNCS
 #define XDRFUNCS
+extern  bool_t xdr_acronym (XDR *, acronym*);
+extern  bool_t xdr_airportName (XDR *, airportName*);
+extern  bool_t xdr_hostName (XDR *, hostName*);
+extern  bool_t xdr_placeName (XDR *, placeName*);
+extern  bool_t xdr_stateName (XDR *, stateName*);
 extern  bool_t xdr_airportList (XDR *, airportList*);
 extern  bool_t xdr_airports (XDR *, airports*);
 extern  bool_t xdr_planeListRet (XDR *, planeListRet*);
@@ -65,6 +82,11 @@ extern  bool_t xdr_location (XDR *, location*);
 #endif
 
 #else /* K&R C */
+extern bool_t xdr_acronym ();
+extern bool_t xdr_airportName ();
+extern bool_t xdr_hostName ();
+extern bool_t xdr_placeName ();
+extern bool_t xdr_stateName ();
 extern bool_t xdr_airportList ();
 extern bool_t xdr_airports ();
 extern bool_t xdr_planeListRet ();
