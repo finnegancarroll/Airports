@@ -2,7 +2,7 @@
 #include <iostream>
 
 void
-place_lookup_prog_1(char *host)
+place_lookup_prog_1(char *phost, char *ahost)
 {
 	CLIENT *clnt = nullptr;
 	planeListRet *result_1 = nullptr;
@@ -12,13 +12,13 @@ place_lookup_prog_1(char *host)
   query_places_1_arg.place = "NoCitySpecified";
   query_places_1_arg.state = "NoStateSpecified";
 
-  //PASSING THE SAME HOSTNAME FOR NOW, BOTH SERVERS NOT ALWAYS ON LOCALHOST
-  query_places_1_arg.host = "localhost";
-
+  //Airports server hostname
+  query_places_1_arg.host = ahost;
+  
   #ifndef	DEBUG
-	clnt = clnt_create (host, PLACE_LOOKUP_PROG, PLACE_LOOKUP_VERS, "udp");
+	clnt = clnt_create (phost, PLACE_LOOKUP_PROG, PLACE_LOOKUP_VERS, "udp");
 	if (clnt == NULL) {
-		clnt_pcreateerror (host);
+		clnt_pcreateerror (phost);
 		exit (1);
 	}
   #endif
@@ -41,13 +41,17 @@ place_lookup_prog_1(char *host)
 int
 main (int argc, char *argv[])
 {
-	char *host;
-
-	if (argc < 2) {
-		printf ("usage: %s server_host\n", argv[0]);
-		exit (1);
+	char *host1;//Places server
+	char *host2;//Airports server
+  
+	if (argc < 3) {
+		std::cout << "Usage: plane_client.c hostname1 hostname2" << std::endl;
+    exit (1);
 	}
-	host = argv[1];
-	place_lookup_prog_1 (host);
+  
+	host1 = argv[1];
+	host2 = argv[2];
+  
+	place_lookup_prog_1 (host1, host2);
   exit (0);
 }
