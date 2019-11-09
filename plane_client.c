@@ -32,6 +32,8 @@ place_lookup_prog_1(char *host)
   printf("Err is: %d\n", result_1->err);
   
   #ifndef	DEBUG
+  //Free xdr memory
+  clnt_freeres(clnt, (xdrproc_t)xdr_planeListRet, (char *)result_1); 
 	clnt_destroy (clnt);
   #endif
 }
