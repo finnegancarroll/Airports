@@ -22,10 +22,14 @@ place_lookup_prog_1(char *phost, char *ahost)
 	}
   #endif
 
+  std::cin.get();
+  
 	result_1 = query_places_1(&query_places_1_arg, clnt);
 	if (result_1 == (planeListRet *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
+  
+  std::cin.get();
   
   //////PRINT OUT SERVER RESULTS HERE!//////
   
@@ -41,7 +45,8 @@ place_lookup_prog_1(char *phost, char *ahost)
   
   #ifndef	DEBUG
   //Free xdr memory
-  clnt_freeres(clnt, (xdrproc_t)xdr_planeListRet, (char *)result_1); 
+  //UNCOMMENT LATER
+  //clnt_freeres(clnt, (xdrproc_t)xdr_planeListRet, (char *)result_1); 
 	clnt_destroy(clnt);
   #endif
 }
