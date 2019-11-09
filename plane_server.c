@@ -7,11 +7,9 @@ void ptrToStatic(planeListRet &s, planeListRet *ptr);
 planeListRet *
 query_places_1_svc(location *argp, struct svc_req *rqstp)
 {
+  //No need to xdr_free(), no structures allocated on the heap 
   errno = 0;//clear garbage data
   static planeListRet result_1;	
-    //MAKES SECOND RUN CRASH
-    //Free memory from last call  
-    //xdr_free((xdrproc_t)xdr_planeListRet, (char*)&result_1); 
   planeListRet *resultPtr = nullptr;
   CLIENT *clnt = nullptr;
   position query_airports_1_arg;//just two doubles
@@ -22,7 +20,7 @@ query_places_1_svc(location *argp, struct svc_req *rqstp)
   clnt = clnt_create (argp->host, AIRPORT_LOOKUP_PROG, AIRPORT_LOOKUP_VERS, "udp");
   #endif
   
-  errno = 0;//CLIENT CREATION SETS THIS TO 13???//rpc doesn't like it when .err !=0!
+  errno = 0;//clnt_create is setting errno to 13 = no permission
   
   resultPtr = query_airports_1(&query_airports_1_arg, clnt);
   
@@ -33,13 +31,6 @@ query_places_1_svc(location *argp, struct svc_req *rqstp)
   #endif
   
   //Sever code///////////
-  
-  //SERVER CODE HERE
-	//SERVER CODE HERE
-  
-
-  //SERVER CODE HERE
-	//SERVER CODE HERE
 
   ptrToStatic(result_1, resultPtr);  
   result_1.err = errno;

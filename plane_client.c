@@ -2,6 +2,8 @@
 #include <errno.h>
 #include <iostream>
 
+void printAirports(planeListRet *list);
+
 void
 place_lookup_prog_1(char *phost, char *ahost)
 {
@@ -26,18 +28,9 @@ place_lookup_prog_1(char *phost, char *ahost)
 	if (result_1 == (planeListRet *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-    
-  //////PRINT OUT SERVER RESULTS HERE!//////
-  std::cout << result_1->err << std::endl;
-  printf(result_1->planeListRet_u.airp.p);
-  printf(result_1->planeListRet_u.airp.port1);
-  printf(result_1->planeListRet_u.airp.port2);
-  printf(result_1->planeListRet_u.airp.port3);
-  printf(result_1->planeListRet_u.airp.port4);
-  printf(result_1->planeListRet_u.airp.port5);
-  std::cout << std::endl;
   
-  //////PRINT OUT SERVER RESULTS HERE!//////
+  //Print resulting airport list
+  printAirports(result_1);
   
   //Print server errors
 	errno = result_1->err;
@@ -69,4 +62,19 @@ main (int argc, char *argv[])
   
 	place_lookup_prog_1 (host1, host2);
   exit (0);
+}
+
+void printAirports(planeListRet *list){
+  printf(list->planeListRet_u.airp.p);
+  std::cout << std::endl;
+  printf(list->planeListRet_u.airp.port1);
+  std::cout << std::endl;
+  printf(list->planeListRet_u.airp.port2);
+  std::cout << std::endl;
+  printf(list->planeListRet_u.airp.port3);
+  std::cout << std::endl;
+  printf(list->planeListRet_u.airp.port4);
+  std::cout << std::endl;
+  printf(list->planeListRet_u.airp.port5);
+  std::cout << std::endl;
 }
