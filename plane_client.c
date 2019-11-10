@@ -3,9 +3,30 @@
 #include <iostream>
 
 void printAirports(planeListRet *list);
+void place_lookup_prog_1(char *phost, char *ahost, char *city, char *state);
 
-void
-place_lookup_prog_1(char *phost, char *ahost, char *city, char *state)
+int main (int argc, char *argv[])
+{
+	char *host1;//Places server
+	char *host2;//Airports server
+	char *city;//Client city
+	char *state;//Client state
+  
+	if (argc < 5) {
+		std::cout << "Usage: plane_client.c Server1Host Server2Host City State" << std::endl;
+    exit (1);
+	}
+  
+	host1 = argv[1];
+	host2 = argv[2];
+	city = argv[3];
+	state = argv[4];
+  
+	place_lookup_prog_1 (host1, host2, city, state);
+  exit (0);
+}
+
+void place_lookup_prog_1(char *phost, char *ahost, char *city, char *state)
 {
 	CLIENT *clnt = nullptr;
 	planeListRet *result_1;
@@ -43,28 +64,6 @@ place_lookup_prog_1(char *phost, char *ahost, char *city, char *state)
   clnt_freeres(clnt, (xdrproc_t)xdr_planeListRet, (char *)result_1); 
 	clnt_destroy(clnt);
   #endif
-}
-
-int
-main (int argc, char *argv[])
-{
-	char *host1;//Places server
-	char *host2;//Airports server
-	char *city;//Client city
-	char *state;//Client state
-  
-	if (argc < 5) {
-		std::cout << "Usage: plane_client.c Server1Host Server2Host City State" << std::endl;
-    exit (1);
-	}
-  
-	host1 = argv[1];
-	host2 = argv[2];
-	city = argv[3];
-	state = argv[4];
-  
-	place_lookup_prog_1 (host1, host2, city, state);
-  exit (0);
 }
 
 void printAirports(planeListRet *list){

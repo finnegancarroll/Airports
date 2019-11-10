@@ -22,6 +22,8 @@ using namespace std;
 
 const int dimensions = 2; //number of dimensions, aka (x,y) coords
 
+void fiveClosest(position *p, planeListRet &list);
+
 //data structures
 struct airport{
   char* acr; //airport acronym
@@ -45,6 +47,27 @@ struct airportNode {
 //DISTANCE FORMULA THINGS
 double deg2rad(double deg);
 double rad2deg(double rad);
+
+planeListRet *
+query_airports_1_svc(position *argp, struct svc_req *rqstp)
+{
+  //No need to xdr_free(), no structures allocated on the heap
+  errno = 0;//clear garbage data
+  static planeListRet result_1;
+  //Default info value
+  result_1.planeListRet_u.airp.p = "Error: No Place Info";
+  
+  result_1.planeListRet_u.airp.port1 = "TEST";
+  result_1.planeListRet_u.airp.port2 = "TEST";
+  result_1.planeListRet_u.airp.port3 = "TEST";
+  result_1.planeListRet_u.airp.port4 = "TEST";
+  result_1.planeListRet_u.airp.port5 = "TEST";
+  
+  //fiveClosest(argp, result_1);
+
+  result_1.err = errno;
+  return &result_1;
+}
 
 double distance(double lat1, double lon1, double lat2, double lon2, char unit)
 {
@@ -402,17 +425,4 @@ void fiveClosest(position *p, planeListRet &list)
 
   //result.err = errno;
   //return &result_1;
-}
-
-planeListRet *
-query_airports_1_svc(position *argp, struct svc_req *rqstp)
-{
-  //No need to xdr_free(), no structures allocated on the heap
-  errno = 0;//clear garbage data
-  static planeListRet result_1;
-
-  fiveClosest(argp, result_1);
-
-  result_1.err = errno;
-  return &result_1;
 }
