@@ -57,13 +57,7 @@ query_airports_1_svc(position *argp, struct svc_req *rqstp)
   //Default info value
   result_1.planeListRet_u.airp.p = "Error: No Place Info";
   
-  result_1.planeListRet_u.airp.port1 = "TEST";
-  result_1.planeListRet_u.airp.port2 = "TEST";
-  result_1.planeListRet_u.airp.port3 = "TEST";
-  result_1.planeListRet_u.airp.port4 = "TEST";
-  result_1.planeListRet_u.airp.port5 = "TEST";
-  
-  //fiveClosest(argp, result_1);
+  fiveClosest(argp, result_1);
 
   result_1.err = errno;
   return &result_1;
