@@ -7,12 +7,11 @@
 #include "places.h"
 #include <errno.h>
 
-// A C++ program to demonstrate find minimum on KD tree
+//KD tree includes
 #include <fstream> //for filereads
 #include <string> //for filereads
 #include <vector> // for knn, used to sort a list of airports
 #include <algorithm> //to sort vector of airports
-
 #include <bits/stdc++.h>
 #include <stdio.h>
 #include <math.h>
@@ -20,8 +19,9 @@
 #define pi 3.14159265358979323846 //used in distance formula
 using namespace std;
 
-const int dimensions = 2; //number of dimensions, aka (x,y) coords
-
+//number of dimensions, aka (x,y) coords
+const int dimensions = 2; 
+//Calculate the knn to position coords
 void fiveClosest(position *p, planeListRet &list);
 
 //data structures
@@ -37,14 +37,13 @@ struct airport{
   //value will be distance from the origin of the KNN to this airport
 };
 
-// A structure to represent node of kd tree
+//a structure to represent node of kd tree
 struct airportNode {
   airport data;
   airportNode *left, *right;
 };
 
-//////////////////////////////////////////////////////////////////
-//DISTANCE FORMULA THINGS
+//DISTANCE FORMULA
 double deg2rad(double deg);
 double rad2deg(double rad);
 
@@ -55,7 +54,7 @@ query_airports_1_svc(position *argp, struct svc_req *rqstp)
   errno = 0;//clear garbage data
   static planeListRet result_1;
   //Default info value
-  result_1.planeListRet_u.airp.p = "Error: No Place Info";
+  result_1.planeListRet_u.airp.p = (char*)"Error: No Place Info";
   
   fiveClosest(argp, result_1);
 
@@ -250,13 +249,12 @@ void append(airportListNode** head_ref, airport new_data)
 //query_airports_1_svc(position *argp, struct svc_req *rqstp)
 void fiveClosest(position *p, planeListRet &list)
 {
-  errno = 0;//clear garbage data
   //static planeListRet result_1; //the value to be returned to the plane client
 
   //note on xdr_free: because we are using pointers alone, there actually is
   //no memory to be freed.
   //calling xdr_free is therefore impossible, and will try to free up memory
-  // that isn't being used in the first place, seg faulting the program
+  //that isn't being used in the first place, seg faulting the program
   //xdr_free((xdrproc_t)xdr_planeListRet, (char*)&result_1);
 
   //SERVER CODE HERE
@@ -278,7 +276,7 @@ void fiveClosest(position *p, planeListRet &list)
         if(line.find(",") != string::npos) {
           //reading in file
           //parse coordinates
-          float coords[] = {atof(line.substr(6,10).c_str()), atof(line.substr(12,17).c_str())};
+          float coords[] = {(float)atof(line.substr(6,10).c_str()), (float)atof(line.substr(12,17).c_str())};
 
           //get airport acronym
           string acr = "";
@@ -322,16 +320,16 @@ void fiveClosest(position *p, planeListRet &list)
   //accessed for the first time
   //there is no way that there is a distance greater than 999999 because
   //the circumference of the earth is 24901 miles
-  airport dummy;
-  dummy.acr = "A";
-  dummy.stateAcr = "B";
-  dummy.name = "C";
-  dummy.point[0] = 23;
-  dummy.point[1] = 24;
-  dummy.distance = 999999;
+  airport max;
+  max.acr = nullptr;
+  max.stateAcr = nullptr;
+  max.name = nullptr;
+  max.point[0] = 23;
+  max.point[1] = 24;
+  max.distance = 999999;
 
   for(int i = 0; i < KNNk; i++){
-    returnVector.push_back(dummy);
+    returnVector.push_back(max);
   }
 
   //populate that empty vector with the KNNk shortest distances
@@ -377,23 +375,6 @@ void fiveClosest(position *p, planeListRet &list)
   char* temp4 = new char[stringVector[4].length() + 1];
   strcpy(temp4, stringVector[4].c_str());
 
-
-
-
-
-  
-  //CHANGE THIS!!!
-  list.planeListRet_u.airp.p = "aBC";
-  //CHANGE THIS!!
-
-
-
-
-
-
-
-
-  
   list.planeListRet_u.airp.port1 = temp0;
   list.planeListRet_u.airp.port2 = temp1;
   list.planeListRet_u.airp.port3 = temp2;
@@ -401,7 +382,4 @@ void fiveClosest(position *p, planeListRet &list)
   list.planeListRet_u.airp.port5 = temp4;  
 
   //end of SERVER CODE HERE
-
-  //result.err = errno;
-  //return &result_1;
 }

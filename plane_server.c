@@ -6,7 +6,7 @@
 void ptrToStatic(planeListRet &s, planeListRet *ptr);
 //Takes cityname and state name and sets lat and lon of that location
 //Also sets place info for city state
-char* setCoords(location *loc, double &lat, double &lon);
+const char* setCoords(location *loc, double &lat, double &lon);
 
 planeListRet* query_places_1_svc(location *argp, struct svc_req *rqstp)
 {
@@ -17,7 +17,7 @@ planeListRet* query_places_1_svc(location *argp, struct svc_req *rqstp)
   CLIENT *clnt = nullptr;
   position query_airports_1_arg;//just two doubles
   //Use the city and state name to find client coordinates 
-  char* info = setCoords(argp, query_airports_1_arg.lat, query_airports_1_arg.lon);
+  const char* info = setCoords(argp, query_airports_1_arg.lat, query_airports_1_arg.lon);
 
   #ifndef	DEBUG	
   clnt = clnt_create (argp->host, AIRPORT_LOOKUP_PROG, AIRPORT_LOOKUP_VERS, "udp");
@@ -33,7 +33,7 @@ planeListRet* query_places_1_svc(location *argp, struct svc_req *rqstp)
   clnt_destroy(clnt);
   #endif
 
-  result_1.planeListRet_u.airp.p = info;
+  result_1.planeListRet_u.airp.p = (char*)info;
   result_1.err = errno;
 	return &result_1;
 }
@@ -54,13 +54,10 @@ void ptrToStatic(planeListRet &s, planeListRet *ptr){
   ptr->planeListRet_u.airp.port5 = nullptr;  
 } 
 
-char* setCoords(location *loc, double &lat, double &lon){
-  ////////////IMPLEMENT THIS FUNCTION//////////// 
-  ////////////IMPLEMENT THIS FUNCTION//////////// 
-  ////////////USE THE LOCATION(CITY/STATE) TO FIND COORDINATES(LAT/LON)//////////// 
+const char* setCoords(location *loc, double &lat, double &lon){
   ////////////USE THE LOCATION(CITY/STATE) TO FIND COORDINATES(LAT/LON)//////////// 
   ////////////SET INFO TO THE CITY INFORMATION LINE OF THE OUTPUT//////////// 
-  ////////////SET INFO TO THE CITY INFORMATION LINE OF THE OUTPUT//////////// 
+  ////////////SET ERRNO = 2//////////// FOR LOCATION NOT FOUND
     
   ////////////TEST////////////
  

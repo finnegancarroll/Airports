@@ -4,6 +4,7 @@
 
 void printAirports(planeListRet *list);
 void place_lookup_prog_1(char *phost, char *ahost, char *city, char *state);
+void printError(int e);
 
 int main (int argc, char *argv[])
 {
@@ -33,7 +34,6 @@ void place_lookup_prog_1(char *phost, char *ahost, char *city, char *state)
 	location query_places_1_arg;
   //Airports server hostname
   query_places_1_arg.host = ahost;
-  //These values cannot be nullptr!
   query_places_1_arg.place = city;
   query_places_1_arg.state = state;
 
@@ -50,13 +50,14 @@ void place_lookup_prog_1(char *phost, char *ahost, char *city, char *state)
 		clnt_perror (clnt, "call failed");
 	}
   
-  //Print resulting airport list
-  printAirports(result_1);
-  
   //Print server errors
-	errno = result_1->err;
-	if(errno > 0){
-    perror("Server Error:");
+	result_1->err;
+	if(result_1->err > 0){
+    std::cout << "Server Error: ";
+    printError(result_1->err);
+  }else{
+    //Print resulting airport list
+    printAirports(result_1);
   }
   
   #ifndef	DEBUG
@@ -66,6 +67,7 @@ void place_lookup_prog_1(char *phost, char *ahost, char *city, char *state)
   #endif
 }
 
+//Print 5 closest airports
 void printAirports(planeListRet *list){
   printf(list->planeListRet_u.airp.p);
   std::cout << std::endl;
@@ -79,4 +81,14 @@ void printAirports(planeListRet *list){
   std::cout << std::endl;
   printf(list->planeListRet_u.airp.port5);
   std::cout << std::endl;
+}
+
+//Print error associated with int err
+void printError(int e){
+  if(e == 2){
+    std::cout << "Unable to open file" << std::endl;
+  }else{
+    errno = e;
+    perror("");
+  }
 }
