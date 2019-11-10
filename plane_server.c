@@ -64,8 +64,8 @@ char* setCoords(location *loc, double &lat, double &lon){
     
   ////////////TEST////////////
  
-  lat = 12;
-  lon = 15;
+  lat = 40.7128;
+  lon = 74.0060;
 
   return "PUT PLACE INFO HERE!";
   ////////////TEST////////////

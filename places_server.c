@@ -304,24 +304,9 @@ void fiveClosest(position *p, planeListRet &list)
     }
   file.close();
 
-
-
-
-  
-  //PLS REPLACE test with the coords from places!!!!
-  //point[0] = lat
-  //point[1] = long
   airport originCoords;
-  originCoords.point[0] = 69;
-  originCoords.point[1] = 3;
-  //originCoords.point[0] = p->lat;
-  //originCoords.point[1] = p->lon;
-
-
-
-
-
-
+  originCoords.point[0] = p->lat;
+  originCoords.point[1] = p->lon;
   
   //all airports start with distance 0, this iterates through all of them
   // and changes that value
