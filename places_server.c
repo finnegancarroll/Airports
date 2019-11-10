@@ -1,5 +1,6 @@
 #include "places.h"
 #include <errno.h>
+#include <vector>
 
 void freePlaneList(planeListRet list);
 
@@ -12,12 +13,12 @@ query_airports_1_svc(position *argp, struct svc_req *rqstp)
   
   //Sever code///////////
  
-  result_1.planeListRet_u.airp.p = "LOCATION INFO";
-  result_1.planeListRet_u.airp.port1 = "AIRPORT1";
-  result_1.planeListRet_u.airp.port2 = "AIRPORT2";
-  result_1.planeListRet_u.airp.port3 = "AIRPORT3";
-  result_1.planeListRet_u.airp.port4 = "AIRPORT4";
-  result_1.planeListRet_u.airp.port5 = "AIRPORT5";
+  result_1.planeListRet_u.airp.p = "code: BRW, name: Barrow, state: AK, distance: 2698.693567";
+  result_1.planeListRet_u.airp.port1 = "code: BRW, name: Barrow, state: AK, distance: 2698.693567";
+  result_1.planeListRet_u.airp.port2 = "code: BRW, name: Barrow, state: AK, distance: 2698.693567";
+  result_1.planeListRet_u.airp.port3 = "code: BRW, name: Barrow, state: AK, distance: 2698.693567";
+  result_1.planeListRet_u.airp.port4 = "code: BRW, name: Barrow, state: AK, distance: 2698.693567";
+  result_1.planeListRet_u.airp.port5 = "code: BRW, name: Barrow, state: AK, distance: 2698.693567";
 	
   result_1.err = errno;
   return &result_1;
