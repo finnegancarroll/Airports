@@ -165,22 +165,6 @@ airportNode* insert(airportNode* root, string acr, string stateAcr, string name,
   return insertRec(root, acr, stateAcr, name, point, 0);
 }
 ////////////////////////////////////////////////////////////////
-// KD tree's helper functions
-void printTree(airportNode * root)
-{
-  if(root == NULL)
-    return;
-
-  printTree(root->left);
-  printTree(root->right);
-  printf(root->data.acr);
-  printf(root->data.stateAcr);
-  printf(root->data.name);
-  cout << root->data.point[0] << " " << root->data.point[1] << endl;
-  cout << "distance: " << root->data.distance << endl;
-  cout << "\n";
-}
-
 //KNN for KD TREE
 //k = K in KNN
 void findKMins(airportNode * root, vector<airport> &airportVector, int k)
@@ -240,16 +224,6 @@ void append(airportListNode** head_ref, airport new_data)
   /* 6. Change the next of last node */
   last->next = new_node;
   return;
-}
-
-void printList(airportListNode *node)
-{
-  while (node != NULL)
-    {
-      cout<<" "<<node->data.name;
-      cout<<" "<<node->data.distance;
-      node = node->next;
-    }
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -323,8 +297,8 @@ void fiveClosest(position *p, planeListRet &list)
   airport originCoords;
   originCoords.point[0] = 69;
   originCoords.point[1] = 3;
-  //test.point[0] = p->lat;
-  //test.point[1] = p->lon;
+  //originCoords.point[0] = p->lat;
+  //originCoords.point[1] = p->lon;
 
 
 
