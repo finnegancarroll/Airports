@@ -8,9 +8,6 @@
 #include <errno.h>
 
 // A C++ program to demonstrate find minimum on KD tree
-
-#include <iostream> //for debugging
-
 #include <fstream> //for filereads
 #include <string> //for filereads
 #include <vector> // for knn, used to sort a list of airports
