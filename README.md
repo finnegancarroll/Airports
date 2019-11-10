@@ -18,7 +18,13 @@ beable to return 5 airports.
 
 Another extremely difficult thing to work with, was the fact that the servers were incapable of producing any form of output. If something segfaulted (which often happened) we had to figure out what happened in our minds eye, instead of physically debugging it like you would on a non-RPC program. Any changes made to the RPC program that result in segfaults will be subject to this again.
 
-Trie:
+Trie: 
+TRIE TREE DOES NOT WORK. IT SEG FAULTS
+This means that if the user were to lets say, run "./client localhost localhost [name of city] [state abbreviation]"
+it wouldn't work and would segfault. It currently cannot use the name of the city and state abbreviation to retrieve coordinate values to send to the server on the second hop.
+
+EVERYTHING ELSE WORKS THOUGH
+How do we know this? We hard coded a coordinate to work with a specific name of city and abbreviation while we were testing the KD tree and KNN. If you input "./client localhost localhost Seattle WA" specifically, the KD-tree works. Seattle WA's coordinates were hard coded into the first server. Unfortunately that means that airp.p is left blank as well, because information to fill that field out cannot be found in the KD-tree.
 
 KD tree: 
 PROS
