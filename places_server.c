@@ -23,6 +23,7 @@ using namespace std;
 const int dimensions = 2; 
 //Calculate the knn to position coords
 void fiveClosest(position *p, planeListRet &list);
+string delLeadSpaces(string in);
 
 //data structures
 struct airport{
@@ -286,9 +287,10 @@ void fiveClosest(position *p, planeListRet &list)
           string name ="";
           int g = 20;
           while(line[g] != ','){
-            name+= line[g];
+            name += line[g];
             g++;
           }
+          name = delLeadSpaces(name);
           
           //parse the state abbreviation
           string stateAcr = "";
@@ -382,4 +384,14 @@ void fiveClosest(position *p, planeListRet &list)
   list.planeListRet_u.airp.port5 = temp4;  
 
   //end of SERVER CODE HERE
+}
+
+string delLeadSpaces(string in){
+  string::const_iterator first = in.begin();
+  string::const_iterator last = in.end();
+  while(isspace(*first)){
+    first++;
+  }
+  
+  return string(first, last);
 }
