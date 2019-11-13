@@ -15,8 +15,9 @@ Linked List: https://www.geeksforgeeks.org/data-structures/linked-list/
 Distance formulas are from the code provided in the hw4 pdf.
 Other logic, conversions, and the main function that calls all of these functions to work together are my own.
 
-
 STRENGTHS AND WEAKNESSES - 
+Our main weakness is that due to time constraints and our difficulty with the project we did not have time to optimally implement our data structures. Ideally, the trie and KD-tree are implemented as their own encapsulated classes and initialized/populated before the first call to a server is made. Additionally, these structures should never be deallocated until the server is killed. Our current version initializes a new KD-tree and trie tree each time a query is made. We would fix this by placing them into seperate classes, creating and populating public instances of the trie and KD-tree at the beginning of our server's main() functions, and implementing destructors for both. 
+
 RPC: There was a ton of trouble getting the RPCs to work, it ended up being the case that clnt_create() in plane_server.c was setting errno to 13
 which messed up the whole return list. As a result errno is set back to zero after the client is created. Additionally we decided to use a single 
 struct with 6 char* to simplify our datatypes. This implementation is easier to debug and program but less extensible as we will only ever
