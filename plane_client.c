@@ -4,7 +4,6 @@
 
 void printAirports(planeListRet *list);
 void place_lookup_prog_1(char *phost, char *ahost, char *city, char *state);
-void printError(int e);
 
 int main (int argc, char *argv[])
 {
@@ -52,9 +51,9 @@ void place_lookup_prog_1(char *phost, char *ahost, char *city, char *state)
   
   //Print server errors
 	result_1->err;
+  errno = result_1->err;
 	if(result_1->err > 0){
-    std::cout << "Server Error: ";
-    printError(result_1->err);
+    perror("Server Error: ");
   }else{
     //Print resulting airport list
     printAirports(result_1);
@@ -81,14 +80,4 @@ void printAirports(planeListRet *list){
   std::cout << std::endl;
   printf(list->planeListRet_u.airp.port5);
   std::cout << std::endl;
-}
-
-//Print error associated with int err
-void printError(int e){
-  if(e == 2){
-    std::cout << "Unable to open file" << std::endl;
-  }else{
-    errno = e;
-    perror("");
-  }
 }
