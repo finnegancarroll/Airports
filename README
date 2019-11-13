@@ -36,7 +36,7 @@ and does not require full input as auto completion of a search field is fully su
 Dynamically allocates memory when created.
 
 Cons: No error checking for lack of file. Input file must be in the working directory and named properly.
-This creates the potential for a segmentation fault. 
+This creates the potential for a segmentation fault. Inputting non existent location results in seg fault
 
 KD tree: PROS Works with any file of any size, assuming it is formatted like airport-locations.txt
 KD trees are searched through more efficiently than brute force methods like large vectors or dynamically sized arrays
