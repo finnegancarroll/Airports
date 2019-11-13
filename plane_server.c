@@ -161,7 +161,6 @@ return returnMe;
 }
 
 
-
 std::string formatInput(std::string line)
 {
   std::string input;
@@ -205,13 +204,15 @@ planeListRet* query_places_1_svc(location *argp, struct svc_req *rqstp)
   float lati;
   float longi;
 
-
+  
   std::ifstream file;
   
   file.open("places2k.txt");
 
 
+  
 
+  
   std::string line;
   while(getline(file,line))
     {
@@ -221,20 +222,23 @@ planeListRet* query_places_1_svc(location *argp, struct svc_req *rqstp)
       longi = formatlon(line);
       insert(root, placename, lati, longi);
     }
-
+  
 
   float helper[2] = {0,0};
 
-  struct returnSearch done = searchTrie(root, "WASeattle", helper);
+  //passing ARGUMENT into search function
+
+  std::string input = "";
+  input += argp->state;
+  input += argp->place;
+
+  struct returnSearch done = searchTrie(root, input, helper);
 
   
   std::string output = formatOutput(done);
 
   const char* outputMe = output.c_str();
-  
-  
-  
-  
+    
   //const char* info = setCoords(argp, query_airports_1_arg.lat, query_airports_1_arg.lon);
   query_airports_1_arg.lat = (double)helper[0];
   query_airports_1_arg.lon = (double)helper[1];

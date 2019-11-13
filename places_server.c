@@ -284,7 +284,7 @@ void fiveClosest(position *p, planeListRet &list)
             acr += line[i];
           //parse the city name
           string name ="";
-          int g = 21;
+          int g = 20;
           while(line[g] != ','){
             name+= line[g];
             g++;
