@@ -9,6 +9,12 @@ A KD tree was used to construct a data structure capable of efficiently storing 
 KNN is used on the KD tree to locate the 5 closest airports given the client's coordinates (which is obtained by the trie), and a KNN value of 5.
 
 THIRD PARTY CODE -
+KD-tree - Construction of the kd-tree itself and the linked list are based heavily on those found on geeksforgeeks. They have been heavily modified to work with the "airport" struct instead of integers and integer pairs.
+Tree: https://www.geeksforgeeks.org/k-dimensional-tree/
+Linked List: https://www.geeksforgeeks.org/data-structures/linked-list/
+Distance formulas are from the code provided in the hw4 pdf.
+Other logic, conversions, and the main function that calls all of these functions to work together are my own.
+
 
 STRENGTHS AND WEAKNESSES - 
 RPC: There was a ton of trouble getting the RPCs to work, it ended up being the case that clnt_create() in plane_server.c was setting errno to 13
