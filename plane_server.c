@@ -6,6 +6,7 @@
 #include <fstream>
 #include <bits/stdc++.h>
 
+bool BUILD = 1;
 
 const int ALPHABET_SIZE = 57;
 const int RETURN_ARR_SIZE = 2;
@@ -21,6 +22,8 @@ struct position2{
   float lat;
 };
 
+
+
 struct TrieNode
 {
   struct TrieNode *children[ALPHABET_SIZE]; //array of potential children
@@ -29,6 +32,8 @@ struct TrieNode
   bool isEndOfWord;
   position2 location;
 };
+
+TrieNode * globRoot;
 typedef struct TrieNode TrieNode;
 struct returnSearch
 {
@@ -37,7 +42,6 @@ struct returnSearch
 };
 struct TrieNode *getNode(void)
 {
-  //  cout << "IN GET NODE" << endl;
   struct TrieNode *pNode =  new TrieNode;//allocates space for new node entry
   pNode->isEndOfWord = false;
 
@@ -49,16 +53,10 @@ struct TrieNode *getNode(void)
 
 int findIndexInAlpha(char * letter) //helper function to find
 {
-  //  cout << "IN INDEX HELPER" << endl;
-  // cout << "letter: ";
-  // cout << *letter << endl;
   for(int i = 0;i<ALPHABET_SIZE;i++)
     {
-      //      cout << i << endl;
-      // cout << *&ALPHA[i];
       if(*letter==*&ALPHA[i])
         {
-          //          cout << "XD" << endl;
           return i;
         }
     }
@@ -68,29 +66,19 @@ int findIndexInAlpha(char * letter) //helper function to find
 
 void insert(struct TrieNode *root, std::string key, float lat, float lon)
 {
-  //  cout << key << endl;
-  // cout << "In insert" << endl;
-  //  count++;
-  //  cout << count << endl;
-
   struct TrieNode *pCrawl = root;
   for (int i = 0; i < key.length(); i++)
     {
-      //  cout << "KEY I" ;
-      // cout << key[i] << endl;
 
       int index = findIndexInAlpha(&key[i]);
-      // int index = key[i] - 'a';
       if(index!=-1)
         {
-          // cout << "MEME" << endl;
           if (!pCrawl->children[index])
             pCrawl->children[index] = getNode();
           pCrawl->location.lat = pCrawl->location.lon = -200;
           pCrawl = pCrawl->children[index];
         }
     }
-  // mark last node as leaf
   pCrawl->isEndOfWord = true;
   pCrawl->location.lat = lat;
   pCrawl->location.lon = lon;
@@ -197,32 +185,35 @@ planeListRet* query_places_1_svc(location *argp, struct svc_req *rqstp)
   CLIENT *clnt = nullptr;
   position query_airports_1_arg;//just two doubles
   //Use the city and state name to find client coordinates 
-
-  struct TrieNode * root = getNode();
-  std::string placename = ""; //stored as STATE CODE + FULL NAME ex. WASeattle City
-  std::string city;
-  float lati;
-  float longi;
-
   
-  std::ifstream file;
-  
-  file.open("places2k.txt");
-
-
-  
-
-  
-  std::string line;
-  while(getline(file,line))
+  if(BUILD)
     {
-      placename = formatInput(line);
-      // string placename = line.substr(0,2)+line.substr(9,63);
-      lati = formatlat(line);
-      longi = formatlon(line);
-      insert(root, placename, lati, longi);
-    }
+      
+      std::ifstream file;
+      
+      file.open("places2k.txt");
+      struct TrieNode * root = getNode();
+      std::string placename = ""; //stored as STATE CODE + FULL NAME ex. WASeattle City
+      std::string city;
+      float lati;
+      float longi;
+      
+      
   
+  
+  
+      std::string line;
+      while(getline(file,line))
+        {
+          placename = formatInput(line);
+          // string placename = line.substr(0,2)+line.substr(9,63);
+          lati = formatlat(line);
+          longi = formatlon(line);
+          insert(root, placename, lati, longi);
+        }
+      globRoot = root;
+      BUILD = 0;
+    }
 
   float helper[2] = {0,0};
 
@@ -232,7 +223,7 @@ planeListRet* query_places_1_svc(location *argp, struct svc_req *rqstp)
   input += argp->state;
   input += argp->place;
 
-  struct returnSearch done = searchTrie(root, input, helper);
+  struct returnSearch done = searchTrie(globRoot, input, helper);
 
   
   std::string output = formatOutput(done);
