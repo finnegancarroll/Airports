@@ -1,6 +1,6 @@
 CONTRIBUTIONS - Chris Go: KD tree implementation. KNN within KD tree. Helped with RPC debugging. 
 Helped with code to read in places2k.txt. 
-Jack Arnolds: Trie implementation. 
+Jack Arnolds: Trie implementation. Trie Searching. Trie Search Input Autocompletion. 
 Finnegan Carroll: RPC calls. Helped with code to read in places2k.txt.
 
 STRUCTURES AND ALGORITHMS - A Trie was used to match city/state names to their corresponding coordinates. 
@@ -33,7 +33,12 @@ Another extremely difficult thing to work with, was the fact that the servers we
 If something segfaulted (which often happened) we had to figure out what happened in our minds eye, instead of physically debugging 
 it like you would on a non-RPC program. Any changes made to the RPC program that result in segfaults will be subject to this again.
 
-Trie: 
+Trie: Works with large files as long as format is consistent. Efficiently finds what you are searching for
+and does not require full input as auto completion of a search field is fully supported. Alphabet can be pretty easily changed.
+Dynamically allocates memory when created.
+
+Cons: No error checking for lack of file. Input file must be in the working directory and named properly.
+This creates the potential for a segmentation fault. 
 
 KD tree: PROS Works with any file of any size, assuming it is formatted like airport-locations.txt
 KD trees are searched through more efficiently than brute force methods like large vectors or dynamically sized arrays
@@ -48,6 +53,10 @@ k-dimension value is set to 3. I designed the KD-tree to work only with (x,y) co
 Getting those to work (and we don't really need to) would require a lot of the code to be massively rewritten. Does not work with
 a KD tree of size less than 5. Also did not account for this, because the file given was something like 1000 lines long.
 
-RUNNING THE PROGRAM - make ./places& ./airports& ./client server1host server2host city state
+RUNNING THE PROGRAM - 
+make 
+./places& 
+./airports& 
+./client server1host server2host city state
 
 Program does not run unless "places2k.txt" and "airport-locations.txt" are in the same directory as the program files.
