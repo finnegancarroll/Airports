@@ -228,7 +228,7 @@ planeListRet* query_places_1_svc(location *argp, struct svc_req *rqstp)
   struct returnSearch done = searchTrie(root, "WASeattle", helper);
 
   
-  std::string output = formatOutput(done);
+  string output = formatOutput(done);
 
   const char* outputMe = output.c_str();
   
