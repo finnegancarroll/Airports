@@ -48,6 +48,9 @@ struct airportNode {
 double deg2rad(double deg);
 double rad2deg(double rad);
 
+airportNode* root = nullptr; // starting node of the KD tree
+bool treeInit = false; // Is the tree already populated? Note: Distances still must be calculated
+
 planeListRet *
 query_airports_1_svc(position *argp, struct svc_req *rqstp)
 {
@@ -193,8 +196,12 @@ void findKMins(airportNode * root, vector<airport> &airportVector, int k)
   findKMins(root->right, airportVector, k);
 
   int i;
-  for (i = k - 1; (i >= 0 && airportVector[i].distance > root->data.distance); i--){
-    airportVector[i + 1] = airportVector[i];
+  for (i = k - 1; (i >= 0 && airportVector[i].distance >= root->data.distance); i--){
+    if(airportVector[i].name == airportVector[i].name && airportVector[i].stateAcr == airportVector[i].stateAcr){
+      airportVector[i] = airportVector[i];
+    }else{
+      airportVector[i + 1] = airportVector[i];
+    }
   }
   airportVector[i + 1] = root->data;
 
@@ -258,9 +265,6 @@ void fiveClosest(position *p, planeListRet &list)
   //that isn't being used in the first place, seg faulting the program
   //xdr_free((xdrproc_t)xdr_planeListRet, (char*)&result_1);
 
-  //SERVER CODE HERE
-  struct airportNode* root = NULL; // starting node of the KD tree
-
   //KD tree construction begins
   //insert points using input file
   int count = 0;
@@ -268,7 +272,8 @@ void fiveClosest(position *p, planeListRet &list)
   ifstream file;
   file.open("airport-locations.txt");
 
-  while(getline(file,line))
+  if(!treeInit){
+    while(getline(file,line))
     {
       count++;
       if(count>1) { //skip first line of airport-location file because it
@@ -302,8 +307,9 @@ void fiveClosest(position *p, planeListRet &list)
         }
       }
     }
-  file.close();
-
+    file.close();
+  }
+  
   airport originCoords;
   originCoords.point[0] = p->lat;
   originCoords.point[1] = p->lon;
