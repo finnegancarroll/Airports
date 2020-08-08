@@ -1,8 +1,3 @@
-CONTRIBUTIONS - Chris Go: KD tree implementation. KNN within KD tree. Helped with RPC debugging. 
-Helped with code to read in places2k.txt. 
-Jack Arnolds: Trie implementation. Trie Searching. Trie Search Input Autocompletion. 
-Finnegan Carroll: RPC calls. Helped with code to read in places2k.txt.
-
 STRUCTURES AND ALGORITHMS - A Trie was used to match city/state names to their corresponding coordinates. 
 A KD tree was used to construct a data structure capable of efficiently storing the information located 
 in the file airport-locations.txt (and would work with any file that has airport information in the same format).
