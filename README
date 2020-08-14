@@ -8,11 +8,10 @@ THIRD PARTY CODE - KD-tree - Construction of the kd-tree itself and the linked l
 They have been heavily modified to work with the "airport" struct instead of integers and integer pairs. 
 KD Tree: https://www.geeksforgeeks.org/k-dimensional-tree/ 
 Linked List: https://www.geeksforgeeks.org/data-structures/linked-list/ 
-Distance formulas are from the code provided in the hw4 pdf.
 Trie based on: https://www.geeksforgeeks.org/trie-insert-and-search/
 Other logic, conversions, and the main function that calls all of these functions to work together are my own.
 
-STRENGTHS AND WEAKNESSES - Our main weakness is that due to time constraints and our difficulty with the project we did not have 
+STRENGTHS AND WEAKNESSES - Due to time constraints and our difficulty with the project we did not have 
 time to optimally implement our data structures. Ideally, the trie and KD-tree are implemented as their own encapsulated classes 
 and initialized/populated before the first call to a server is made. We implement this by placing them into 
 seperate classes and creating/populating public instances of the trie and KD-tree at the beginning of our server's main() functions.
